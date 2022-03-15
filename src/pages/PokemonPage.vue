@@ -7,6 +7,9 @@
 
 import PokemonOptions from '@/components/PokemonOptions'
 import PokemonPicture from '@/components/PokemonPicture'
+import getPokemonsOptions from '../helpers/getPokemonOptions.js'
+
+console.log( getPokemonsOptions())
 
 export default {
     name: 'PokemonPage',
