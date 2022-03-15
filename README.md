@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 04-pokemon-game
 
 ## Project setup
@@ -22,3 +23,6 @@ npm run test:unit
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+=======
+# who-s_that_pokemon
+>>>>>>> main
