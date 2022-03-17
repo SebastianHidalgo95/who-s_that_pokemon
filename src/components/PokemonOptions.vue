@@ -2,7 +2,8 @@
     <div class="options-container">
         <ul>
             <li v-for="pokemon in pokemons" 
-                :key="pokemon.id">
+                :key="pokemon.id"
+                @click="$emit( 'selection', pokemon.id)">
                 {{ pokemon.name }}
             </li>
         </ul>
@@ -20,7 +21,10 @@ export default {
 </script>
 <style scoped>
     ul {
-    list-style-type: none;
+        list-style-type: none;
+        display: flex;
+        justify-content: center;
+
     }
     li {
         background-color: white;
@@ -30,6 +34,7 @@ export default {
         margin-bottom: 10px;
         width: 250px;
         text-transform: capitalize;
+        
     }
 
     li:hover {

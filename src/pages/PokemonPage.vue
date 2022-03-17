@@ -1,7 +1,22 @@
 <template>
-    <h1>¿Quién es este pokémon?</h1>
-    <PokemonPicture :pokemonId="150" :showPokemon="false"/>
-    <PokemonOptions :pokemons="pokemonArr"/>
+    <h1 v-if="!pokemon"> Espere par favar...</h1>
+    <div v-else>
+        <h1>¿Quién es este pokémon?</h1>
+        <PokemonPicture :pokemonId="pokemon.id" :showPokemon="showPokemon"/>
+        <PokemonOptions :pokemons="pokemonArr" @selection="checkAnswer"/>
+
+        <div>
+            
+        </div>
+        <h2>{{ msg }}</h2>
+        <div class="button-container">
+            <button> 
+                Nuevo Juego
+            </button>
+        </div>
+        
+    </div>
+
 </template>
 <script>
 
@@ -15,20 +30,41 @@ export default {
     components: { PokemonOptions, PokemonPicture },
     data() {
         return {
-            pokemonArr: []
+            pokemonArr: [],
+            pokemon: null,
+            showPokemon: false,
+            showAnswer : false,
+            msg: ''
         }
     },
 
     methods: {
         async mixPokemonArray(){
             this.pokemonArr = await getPokemonsOptions()
+
+            const rndInt = Math.floor( Math.random() * 4 )
+            this.pokemon = this.pokemonArr[ rndInt ]
+        },
+        checkAnswer(pokemonId){
+            this.showPokemon = true
+            this.showAnswer = true
+            if ( pokemonId === this.pokemon.id ){
+                this.msg =`Correcto, ${ this.pokemon.name }`
+            } else {
+                this.msg =`Upsss, era ${ this.pokemon.name }`
+            }
         }
     },
     mounted() {
         this.mixPokemonArray()
     },
+    
 }
 </script>
-<style lang="">
-    
+<style scoped>
+    .button-container {
+        display: flex;
+        justify-content: center;
+        align: center;
+    }
 </style>
