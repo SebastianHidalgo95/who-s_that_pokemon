@@ -3,7 +3,7 @@
         <ul>
             <li v-for="pokemon in pokemons" 
                 :key="pokemon.id"
-                @click="$emit( 'selection', pokemon.id)">
+                @click="decision(pokemon.id)">
                 {{ pokemon.name }}
             </li>
         </ul>
@@ -15,8 +15,18 @@ export default {
         pokemons: {
             type: Array, 
             required: true
+        },
+        selectedOption: {
+            type: Boolean,
+            required: true,
+        },
+    },
+    methods: {
+        decision( pokemonId ){
+            if( !this.selectedOption ) 
+            return this.$emit( 'selection', pokemonId)
         }
-    }
+    },
 }
 </script>
 <style scoped>

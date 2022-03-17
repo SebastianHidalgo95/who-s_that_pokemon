@@ -3,17 +3,20 @@
     <div v-else>
         <h1>¿Quién es este pokémon?</h1>
         <PokemonPicture :pokemonId="pokemon.id" :showPokemon="showPokemon"/>
-        <PokemonOptions :pokemons="pokemonArr" @selection="checkAnswer"/>
+        <PokemonOptions 
+            :pokemons="pokemonArr" 
+            :selected-option="selectedOption"
+            @selection="checkAnswer" />
 
-        <div>
-            
-        </div>
-        <h2>{{ msg }}</h2>
-        <div class="button-container">
-            <button> 
-                Nuevo Juego
-            </button>
-        </div>
+        <template v-if="showAnswer">
+          <h2 class="fade-in">{{ msg }}</h2>
+            <div class="button-container">
+                <button @click="newGame"> 
+                    Nuevo Juego
+                </button>
+            </div>  
+        </template>
+        
         
     </div>
 
@@ -34,6 +37,7 @@ export default {
             pokemon: null,
             showPokemon: false,
             showAnswer : false,
+            selectedOption: false,
             msg: ''
         }
     },
@@ -46,6 +50,7 @@ export default {
             this.pokemon = this.pokemonArr[ rndInt ]
         },
         checkAnswer(pokemonId){
+            this.selectedOption = true
             this.showPokemon = true
             this.showAnswer = true
             if ( pokemonId === this.pokemon.id ){
@@ -53,6 +58,14 @@ export default {
             } else {
                 this.msg =`Upsss, era ${ this.pokemon.name }`
             }
+        },
+        newGame(){
+            this.selectedOption = false
+            this.showAnswer = false
+            this.showPokemon = false
+            this.pokemon = null
+            this.pokemonArr = []
+            this.mixPokemonArray()
         }
     },
     mounted() {
